@@ -24,6 +24,15 @@ public final class R {
     public static final class drawable {
         public static final int ball_red=0x7f020000;
         public static final int ic_launcher=0x7f020001;
+        public static final int table_bg=0x7f020002;
+        public static final int table_left_botton_shape_red=0x7f020003;
+        public static final int table_left_botton_shape_white=0x7f020004;
+        public static final int table_left_top_shape_red=0x7f020005;
+        public static final int table_left_top_shape_white=0x7f020006;
+        public static final int table_right_botton_shape_red=0x7f020007;
+        public static final int table_right_botton_shape_white=0x7f020008;
+        public static final int table_right_top_shape_red=0x7f020009;
+        public static final int table_right_top_shape_white=0x7f02000a;
     }
     public static final class id {
         public static final int RelativeLayout=0x7f060000;
@@ -38,6 +47,7 @@ public final class R {
         public static final int activity_main_table=0x7f030001;
         public static final int item=0x7f030002;
         public static final int newitem=0x7f030003;
+        public static final int table_item=0x7f030004;
     }
     public static final class string {
         public static final int action_settings=0x7f050002;

@@ -86,7 +86,6 @@ public class AutoWrapViewNew extends ViewGroup {
 			if(i%mNumber == 0){
 				row ++;
 				lengthX = 0;
-				System.out.println("mNumber-->" + mNumber + "  row-->" + row);
 			}
 			lengthX = i%mNumber * (width + mLeftAndRightSpace);
 			lengthY = (height + mTopAndBotton)*row;

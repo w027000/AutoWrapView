@@ -2,12 +2,14 @@ package com.example.android_test;
 
 
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 
 public class MainActivity extends Activity {
@@ -20,7 +22,6 @@ public class MainActivity extends Activity {
 //		setContentView(R.layout.activity_main);
 		
 //		layoutView = (LinearLayout) findViewById(R.id.frequent_choice_view_ball);
-//		
 //		for(int i = 0; i < 3; i++){
 //			View view = LayoutInflater.from(this).inflate(R.layout.item, null);
 //			AutoWrapViewNew wrapView = (AutoWrapViewNew) view.findViewById(R.id.many_view_item_auto_view);
@@ -42,10 +43,37 @@ public class MainActivity extends Activity {
 //			wrapView.setRightAndLeftSpace(10);
 //			line_view.setVisibility(View.VISIBLE);
 //			layoutView.addView(view);
-//			
+			
 //		}
 		
-		setContentView(R.layout.activity_main_table);
-
+//		setContentView(R.layout.activity_main_table);
+		
+		
+		setContentView(R.layout.activity_main);
+		layoutView = (LinearLayout) findViewById(R.id.frequent_choice_view_ball);
+		View view = LayoutInflater.from(this).inflate(R.layout.table_item, null);
+		final TableViewNew wrapView = (TableViewNew) view.findViewById(R.id.many_view_item_auto_view);
+		for(int j=0;j<10;j++){
+			final TextView textView = new TextView(this);
+			textView.setText("" +j);
+			textView.setId(j);
+			textView.setGravity(Gravity.CENTER);
+			textView.setTag(false);
+			
+			textView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(!(Boolean)textView.getTag()){
+						textView.setTag(true);
+						textView.setBackgroundColor(Color.RED);
+					}else{
+						textView.setTag(false);
+						textView.setBackgroundColor(Color.WHITE);
+					}
+				}
+			});
+			wrapView.addView(textView);
+		}
+		layoutView.addView(view);
 	}
 }

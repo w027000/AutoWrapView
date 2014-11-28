@@ -11,11 +11,7 @@
         android:id="@+id/frequent_choice_view_ball"
         android:layout_width="fill_parent"
         android:layout_height="90dip"
-        android:orientation="vertical"
-        android:background="#ffffff"
-        android:layout_marginTop="200dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip" >
+        android:orientation="vertical">
     </com.example.android_test.TableView>
 
 </LinearLayout>
