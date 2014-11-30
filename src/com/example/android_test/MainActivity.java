@@ -53,25 +53,38 @@ public class MainActivity extends Activity {
 		layoutView = (LinearLayout) findViewById(R.id.frequent_choice_view_ball);
 		View view = LayoutInflater.from(this).inflate(R.layout.table_item, null);
 		final TableViewNew wrapView = (TableViewNew) view.findViewById(R.id.many_view_item_auto_view);
+		wrapView.setRowCol(2, 5);
 		for(int j=0;j<10;j++){
 			final TextView textView = new TextView(this);
 			textView.setText("" +j);
 			textView.setId(j);
 			textView.setGravity(Gravity.CENTER);
 			textView.setTag(false);
-			
-			textView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if(!(Boolean)textView.getTag()){
-						textView.setTag(true);
-						textView.setBackgroundColor(Color.RED);
-					}else{
-						textView.setTag(false);
-						textView.setBackgroundColor(Color.WHITE);
-					}
-				}
-			});
+			textView.setBackgroundColor(Color.WHITE);
+//			if(j == 0){
+//				textView.setBackgroundResource(R.drawable.table_left_top_shape_white);
+//			}else if(j == 4){
+//				textView.setBackgroundResource(R.drawable.table_right_top_shape_white);
+//			}else if(j == 5){
+//				textView.setBackgroundResource(R.drawable.table_left_botton_shape_white);
+//			}else if(j == 9){
+//				textView.setBackgroundResource(R.drawable.table_right_botton_shape_white);
+//			}else{
+//				textView.setBackgroundColor(Color.WHITE);
+//			}
+//			
+//			textView.setOnClickListener(new View.OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					if(!(Boolean)textView.getTag()){
+//						textView.setTag(true);
+//						textView.setBackgroundColor(Color.RED);
+//					}else{
+//						textView.setTag(false);
+//						textView.setBackgroundColor(Color.WHITE);
+//					}
+//				}
+//			});
 			wrapView.addView(textView);
 		}
 		layoutView.addView(view);

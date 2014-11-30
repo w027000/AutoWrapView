@@ -1,22 +1,21 @@
 package com.example.android_test;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.MeasureSpec;
+
+/**
+ * 2014年11月30日
+ * @author jianhua
+ */
 public class TableViewNew extends ViewGroup {
-	
+
 	private int mRow = 2;// 行数
 	private int mCol = 5;// 列数
-	private int mBoder = 1;
-	int width = 0;
-	int height = 0;
-
+	private int mBoder = 2;
+	
 	public TableViewNew(Context context) {
 		super(context);
 	}
@@ -28,81 +27,72 @@ public class TableViewNew extends ViewGroup {
 	public TableViewNew(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
-	
-	public void setRowCol(int row,int col){
+
+	public void setRowCol(int row, int col) {
 		mCol = col;
 		mRow = row;
 	}
 	
-	
-	
-	
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//		width = MeasureSpec.getSize(widthMeasureSpec);
-//		height = MeasureSpec.getSize(widthMeasureSpec);
-		width = MeasureSpec.getSize(widthMeasureSpec);
-		height = MeasureSpec.getSize(widthMeasureSpec);
-		int fatherWidthSize = width-mBoder*(mCol+1);
-		int fatherHeightSize = height-mBoder*(mRow+1);
-		int childWidthMeasureSpecAdd = fatherWidthSize%mCol;
-		int childHeightMeasureSpecAdd = fatherHeightSize%mRow;
-		int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(fatherWidthSize/mCol,MeasureSpec.EXACTLY);
-		int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(fatherHeightSize/mRow,MeasureSpec.EXACTLY);
-		
-		
-		System.out.println("widthMeasureSpec----"+MeasureSpec.getSize(widthMeasureSpec));
-		System.out.println("heightMeasureSpec-----"+MeasureSpec.getSize(heightMeasureSpec));
-		System.out.println("childWidthMeasureSpecAdd----"+childWidthMeasureSpecAdd);
-		System.out.println("childHeightMeasureSpecAdd-----"+childHeightMeasureSpecAdd);
-		int size = mCol*mRow;
-		for(int i=0; i<size;i++){
-			final View child = getChildAt(i);
-			int childWidth = childWidthMeasureSpec;
-			int childHeight = childHeightMeasureSpec;
-			if(i%mCol<childWidthMeasureSpecAdd){
-				childWidth+=1; 
+		int fatherWidthSize = MeasureSpec.getSize(widthMeasureSpec);
+		int fatherHeightSize = MeasureSpec.getSize(heightMeasureSpec);
+		int size = mRow * mCol;
+		int widthtemp = (fatherWidthSize - (mCol + 1) * mBoder) % mCol;
+		int heighttemp = (fatherHeightSize - (mRow + 1) * mBoder) % mRow;
+		int childWidth = (fatherWidthSize - (mCol + 1) * mBoder) / mCol;
+		int childHeight = (fatherHeightSize - (mRow + 1) * mBoder) / mRow;
+		int widthValue = 0;
+		int heightValue = 0;
+		int width_add = 0;
+		int height_add = 0;
+		for (int i = 0; i < size; i++) {
+			View child = getChildAt(i);
+			if (i % mCol == 0) {
+				width_add = 0;
+				
+				if (height_add >= heighttemp) {
+					heightValue = 0;
+				} else {
+					heightValue = 1;
+					height_add++;
+				}
+				
 			}
-			if(i/mCol<childHeightMeasureSpecAdd){
-				childHeight+=1; 
+			if (width_add >= widthtemp) {
+				widthValue = 0;
+			} else {
+				widthValue = 1;
+				width_add++;
 			}
-			child.measure(childWidth, childHeight);
+			child.measure(MeasureSpec.makeMeasureSpec(childWidth + widthValue, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(childHeight + heightValue, MeasureSpec.EXACTLY));
 		}
-		super.onMeasure(MeasureSpec.makeMeasureSpec(fatherWidthSize*mCol, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(childHeightMeasureSpec*mRow+mBoder*(mRow+1), MeasureSpec.EXACTLY));
-//		super.onMeasure(widthMeasureSpec, childHeightMeasureSpec);
+		super.onMeasure(MeasureSpec.makeMeasureSpec(widthMeasureSpec, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(heightMeasureSpec, MeasureSpec.EXACTLY));
 	}
-	
-	
+
 	@Override
-	protected void onLayout(boolean changed, int l, int t, int r, int b) {
+	protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {
 		int lengthX = 0;
-		int lengthY = 0; 
-		int childWidthMeasureSpecAdd = (width-mBoder*(mCol+1))%mCol;
-		int childHeightMeasureSpecAdd = (height-mBoder*(mRow+1))%mRow;
-		
-		System.out.println("widthMeasureSpec----"+width);
-		System.out.println("heightMeasureSpec-----"+height);
-		System.out.println("childWidthMeasureSpecAdd=="+childWidthMeasureSpecAdd);
-		System.out.println("childHeightMeasureSpecAdd=="+childHeightMeasureSpecAdd);
-		
+		int lengthY = 0;
 		final int size = getChildCount();
 		for (int i = 0; i < size; i++) {
 			final View child = this.getChildAt(i);
-			int child_width = child.getMeasuredWidth();
-			int child_height = child.getMeasuredHeight();
-			lengthX = i%mCol *child_width + mBoder*(i%mCol+1);
-			
-			if(i%mCol>=childWidthMeasureSpecAdd){
-				lengthX += childWidthMeasureSpecAdd;
+			int width = child.getMeasuredWidth();
+			int height = child.getMeasuredHeight();
+			if (i % mCol == 0) {
+				lengthX = mBoder;
+				lengthY += mBoder + height;
 			}
-			
-			lengthY = i/mCol*child_height + mBoder*(i/mCol+1);
-			
-			if(i/mCol>=childHeightMeasureSpecAdd){
-				lengthY += childHeightMeasureSpecAdd;
-			}
-			
-			child.layout(lengthX, lengthY, lengthX+child_width, lengthY+child_height);
+			lengthX = lengthX + width;
+			child.layout(lengthX - width, lengthY - height, lengthX, lengthY);
+			lengthX += mBoder;
+		}
+	}
+
+	public void clearTag() {
+		for (int i = 0; i < getChildCount(); i++) {
+			getChildAt(i).setTag(false);
+			getChildAt(i).setBackgroundColor(Color.WHITE);
 		}
 	}
 
