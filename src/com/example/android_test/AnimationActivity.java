@@ -21,7 +21,8 @@ public class AnimationActivity extends Activity{
 		iv.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				TranslateAnimation animation = new TranslateAnimation(0, 0, 0, 100);
+				
+				TranslateAnimation animation = new TranslateAnimation(0, 0, 0, 1000);
 				animation.setDuration(500);// 设置动画持续时间
 				animation.setFillAfter(true);
 				animation.setFillBefore(false);
@@ -39,6 +40,7 @@ public class AnimationActivity extends Activity{
 					}
 
 				});
+				iv.startAnimation(animation);
 			}
 		});
 	}
