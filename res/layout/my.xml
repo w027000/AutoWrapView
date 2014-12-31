@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android_test.MainActivity" >
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="201dp"
+        android:layout_height="wrap_content"
+        android:text="自绘表格"
+        android:onClick="button1OnClick" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="197dp"
+        android:layout_height="wrap_content"
+        android:text="位移动画"
+        android:onClick="button2OnClick" />
+
+</LinearLayout>
